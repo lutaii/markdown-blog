@@ -40,23 +40,41 @@ ColorPalette generatePaletteForBrightness(Brightness brightness) {
     dynamicSchemeVariant: DynamicSchemeVariant.monochrome,
     brightness: brightness,
   );
-
-  return ColorPalette(
-    background: const Color(0xFF323437),
-    foreground: materialPalette.onSurface,
-    muted: materialPalette.onSurface.withOpacity(.12),
-    mutedForeground: materialPalette.onSurface.withOpacity(.38),
-    border: materialPalette.onSurface.withOpacity(.24),
-    primary: const Color(0xFFE2B712),
-    primaryForeground: materialPalette.onPrimary,
-    secondary: materialPalette.secondary,
-    secondaryForeground: materialPalette.onSecondary,
-    accent: materialPalette.tertiary,
-    accentForeground: materialPalette.onTertiary,
-    destructive: materialPalette.error,
-    destructiveForeground: materialPalette.onError,
-    ring: const Color.fromARGB(255, 60, 139, 250),
-  );
+  if (brightness == Brightness.dark) {
+    return ColorPalette(
+      background: const Color(0xFF323437),
+      foreground: const Color(0xFF2C2E31),
+      muted: const Color(0xFF646669),
+      primary: const Color(0xFFE2B712),
+      secondary: const Color(0xFFD1D0C5),
+      primaryForeground: const Color(0xFF323437),
+      destructive: const Color(0xFFCA4754),
+      mutedForeground: const Color(0xFFA8A7A0),
+      border: materialPalette.onSurface.withOpacity(.24),
+      secondaryForeground: materialPalette.onSecondary,
+      accent: materialPalette.tertiary,
+      accentForeground: materialPalette.onTertiary,
+      destructiveForeground: materialPalette.onError,
+      ring: const Color.fromARGB(255, 60, 139, 250),
+    );
+  } else {
+    return ColorPalette(
+      background: const Color(0xFF323437),
+      foreground: const Color(0xFF2C2E31),
+      muted: const Color(0xFF646669),
+      primary: const Color(0xFFE2B712),
+      secondary: const Color(0xFFD1D0C5),
+      primaryForeground: const Color(0xFF323437),
+      destructive: const Color(0xFFCA4754),
+      mutedForeground: const Color(0xFFA8A7A0),
+      border: materialPalette.onSurface.withOpacity(.24),
+      secondaryForeground: materialPalette.onSecondary,
+      accent: materialPalette.tertiary,
+      accentForeground: materialPalette.onTertiary,
+      destructiveForeground: materialPalette.onError,
+      ring: const Color.fromARGB(255, 60, 139, 250),
+    );
+  }
 }
 
 // use default styles from material2021
