@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:markdown_blog/layout/layout.dart';
+import 'package:markdown_blog/theme/theme.dart';
 import 'package:provider/provider.dart';
+
+final themeModeSwitcher = ValueNotifier(ThemeMode.system);
+
+final lightTheme = createThemeData(
+  brightness: Brightness.light,
+  palette: lightColorPalette,
+  typography: defaultTypography,
+);
+
+final darkTheme = createThemeData(
+  brightness: Brightness.dark,
+  palette: darkColorPalette,
+  typography: defaultTypography,
+);
 
 void main() {
   runApp(const MarkdownEditorApp());
@@ -11,11 +27,21 @@ class MarkdownEditorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MarkdownProvider(),
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: MarkdownEditorScreen(),
+    return WindowSizeScope(
+      child: ChangeNotifierProvider(
+        create: (context) => MarkdownProvider(),
+        child: ValueListenableBuilder(
+          valueListenable: themeModeSwitcher,
+          builder: (context, themeMode, _) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              themeMode: themeMode,
+              darkTheme: darkTheme,
+              theme: lightTheme,
+              home: const MarkdownEditorScreen(),
+            );
+          },
+        ),
       ),
     );
   }
@@ -29,8 +55,16 @@ class MarkdownEditorScreen extends StatelessWidget {
     final markdownProvider = Provider.of<MarkdownProvider>(context);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorPalette.background,
       appBar: AppBar(
-        title: const Text('Markdown Editor'),
+        title: Text(
+          'Markdown Editor',
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge
+              ?.copyWith(color: Theme.of(context).colorPalette.primary),
+        ),
+        backgroundColor: Theme.of(context).colorPalette.background,
       ),
       body: Column(
         children: [
